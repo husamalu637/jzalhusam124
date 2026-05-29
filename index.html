@@ -4,185 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صدى الطفولة | جزيرة الكنز</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght=600;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #00d2ff;
-            --accent: #ff9800;
-            --bg: #0b0f19;
-            --card: #161e2e;
-        }
-
+        :root { --primary: #00d2ff; --accent: #ff9800; --bg: #0b0f19; --card: #161e2e; }
+        * { user-select: none; }
         body {
-            background-color: var(--bg);
-            color: white;
-            font-family: 'Cairo', sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background-color: var(--bg); color: white; font-family: 'Cairo', sans-serif;
+            margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center;
+            overflow-x: hidden; position: relative;
         }
-
         header {
-            width: 100%;
-            background: linear-gradient(135deg, #00d2ff, #3a7bd5);
-            padding: 40px 0;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            width: 100%; background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+            padding: 40px 0; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-
-        /* ستايل البنرات */
+        header h1 { margin: 0; font-size: 2.2rem; }
+        header p { margin: 5px 0 0; font-size: 1rem; }
         .banner-top, .banner-bottom {
-            width: 100%;
-            text-align: center;
-            background: #0a0e15;
-            padding: 20px 0;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 12px;
-            overflow-x: auto;
+            width: 100%; text-align: center; background: #0a0e15; padding: 20px 0;
+            margin: 0 auto; display: flex; justify-content: center; align-items: center;
+            border-radius: 12px; overflow-x: auto;
         }
-        .banner-top {
-            max-width: 900px;
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-        .banner-bottom {
-            max-width: 900px;
-            margin-top: 30px;
-            margin-bottom: 20px;
-        }
-
-        .main-container {
-            max-width: 900px;
-            width: 95%;
-            margin: 20px auto;
-            text-align: center;
-        }
-
+        .banner-top { max-width: 900px; margin-top: 20px; margin-bottom: 10px; }
+        .banner-bottom { max-width: 900px; margin-top: 30px; margin-bottom: 20px; }
+        .main-container { max-width: 900px; width: 95%; margin: 0 auto; text-align: center; }
+        .video-wrapper-outer { position: relative; z-index: 1; }
         .video-display-area {
-            background: #000;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 3px solid var(--primary);
-            box-shadow: 0 0 30px rgba(0, 210, 255, 0.2);
-            margin-bottom: 30px;
-            display: none;
-            position: relative;
+            background: #000; border-radius: 20px; overflow: hidden; border: 3px solid var(--primary);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.2); margin-bottom: 30px; display: none; position: relative;
         }
-
         .responsive-iframe {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
+            position: relative; width: 100%; aspect-ratio: 16 / 9;
+            background: #000; overflow: hidden;
         }
-
+        /* رفع المشغل الأساسي - نفس الإعدادات السابقة */
         .responsive-iframe iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
+            position: absolute; top: -160px; left: 0; width: 100%; height: calc(100% + 160px);
+            border: 0; overflow: hidden; pointer-events: auto;
         }
-
         .episodes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-            gap: 15px;
-            background: var(--card);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 15px; background: var(--card); padding: 25px;
+            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-
         .ep-btn {
-            background: #252f44;
-            color: white;
-            border: 2px solid transparent;
-            padding: 15px 0;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
+            background: #252f44; color: white; border: 2px solid transparent;
+            padding: 15px 0; border-radius: 12px; font-size: 1.2rem;
+            font-weight: bold; cursor: pointer; transition: 0.3s;
         }
-
-        .ep-btn:hover {
-            background: var(--primary);
-            transform: scale(1.1);
-            border-color: white;
-        }
-
-        .ep-btn.active {
-            background: var(--accent);
-            color: black;
-            box-shadow: 0 0 15px var(--accent);
-        }
-
-        .info-text {
-            margin-top: 20px;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-
-        footer {
-            margin-top: 50px;
-            padding: 20px;
-            opacity: 0.4;
-            font-size: 0.8rem;
+        .ep-btn:hover { background: var(--primary); transform: scale(1.1); border-color: white; }
+        .ep-btn.active { background: var(--accent); color: black; box-shadow: 0 0 15px var(--accent); }
+        .info-text { margin-top: 20px; color: var(--primary); font-size: 1.1rem; }
+        footer { margin-top: 50px; padding: 20px; opacity: 0.4; font-size: 0.8rem; }
+        h2#status-msg { margin-top: 10px; }
+        @media (max-width: 600px) {
+            .episodes-grid { grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 10px; padding: 15px; }
+            .ep-btn { padding: 10px 0; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>صدى الطفولة</h1>
-    <p>جزيرة الكنز - اختر رقم الحلقة وابدأ المغامرة</p>
+    <h1>🎬 صدى الطفولة</h1>
+    <p>اختر رقم الحلقة وابدأ المشاهدة فوراً</p>
 </header>
 
-<!-- ===== بنر أعلى الموقع ===== -->
+<!-- بنر أعلى الموقع -->
 <div class="banner-top">
     <script>
-        atOptions = {
-            'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-        };
+        atOptions = { 'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
     </script>
     <script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script>
 </div>
 
 <div class="main-container">
-    
-    <div id="videoPlayer" class="video-display-area">
-        <div class="responsive-iframe">
-            <iframe id="mainIframe" src="" allowfullscreen="" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+    <div class="video-wrapper-outer">
+        <div id="videoPlayer" class="video-display-area">
+            <div class="responsive-iframe">
+                <iframe id="mainIframe" src="" allowfullscreen scrolling="no"></iframe>
+            </div>
+            <div id="episodeTitle" style="padding: 10px; background: var(--card); font-weight: bold;"></div>
         </div>
-        <div id="episodeTitle" style="padding: 10px; background: var(--card); font-weight: bold;"></div>
     </div>
-
     <h2 id="status-msg">اضغط على رقم الحلقة للمشاهدة:</h2>
-
     <div class="episodes-grid" id="buttonsGrid"></div>
-
-    <p class="info-text">جميع حلقات جزيرة الكنز متوفرة الآن بجودة عالية</p>
+    <p class="info-text">جميع حلقات جزيرة الكنز (26 حلقة) متوفرة الآن بجودة عالية</p>
 </div>
 
-<!-- ===== بنر أسفل الموقع ===== -->
+<!-- بنر أسفل الموقع -->
 <div class="banner-bottom">
     <script>
-        atOptions = {
-            'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-        };
+        atOptions = { 'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
     </script>
     <script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script>
 </div>
@@ -190,61 +102,64 @@
 <footer>جميع الحقوق محفوظة - صدى الطفولة &copy; 2026</footer>
 
 <script>
-    const episodes = [
-        { n: 1, src: "https://meyon.com.ye/videos/embed/cd962f81-5a8e-43c2-aa2d-a98f19dd5573" },
-        { n: 2, src: "https://meyon.com.ye/videos/embed/025d5dee-60b6-412b-9a63-c1058dcfeac6" },
-        { n: 3, src: "https://meyon.com.ye/videos/embed/3f789276-5317-4c82-a359-aa41952759ff" },
-        { n: 4, src: "https://meyon.com.ye/videos/embed/a38db2d8-d3e4-4ea0-98a6-20427af93804" },
-        { n: 5, src: "https://meyon.com.ye/videos/embed/78aa5c8a-16a5-4e9d-9bf3-4412d5d53385" },
-        { n: 6, src: "https://meyon.com.ye/videos/embed/151fc8b5-033d-4b87-be4a-e5bd51402d00" },
-        { n: 7, src: "https://meyon.com.ye/videos/embed/7ce5744b-5193-4208-92aa-d928b0c5e332" },
-        { n: 8, src: "https://meyon.com.ye/videos/embed/551e7d20-655b-48fc-9d0a-7198750480c7" },
-        { n: 9, src: "https://meyon.com.ye/videos/embed/9fe8cd66-50c4-4059-8d1e-cd8a21e9a409" },
-        { n: 10, src: "https://meyon.com.ye/videos/embed/0cfe4c5e-6b68-49e5-845c-4cde1a10873c" },
-        { n: 11, src: "https://meyon.com.ye/videos/embed/1bc79cc2-344d-44b6-9428-9c17f694e77d" },
-        { n: 12, src: "https://meyon.com.ye/videos/embed/7b60e305-6af5-4886-a4da-8a1b0a7e0703" },
-        { n: 13, src: "https://meyon.com.ye/videos/embed/1ec8b9aa-be6f-43f1-9df2-edcfe81e2f54" },
-        { n: 14, src: "https://meyon.com.ye/videos/embed/4c4c07c7-b318-481a-89d4-8046477e10e3" },
-        { n: 15, src: "https://meyon.com.ye/videos/embed/b90a7d24-41f2-438d-8e02-ae6911dbc326" },
-        { n: 16, src: "https://meyon.com.ye/videos/embed/d4cd5239-4eb7-4c24-8e75-9c94aa90dac1" },
-        { n: 17, src: "https://meyon.com.ye/videos/embed/19e39101-a205-41d2-bb18-2c11d8238bfe" },
-        { n: 18, src: "https://meyon.com.ye/videos/embed/ec1baa31-62d0-48a4-8297-879feceba3ac" },
-        { n: 19, src: "https://meyon.com.ye/videos/embed/e2610277-61a3-468e-ab42-ddb65ad48602" },
-        { n: 20, src: "https://meyon.com.ye/videos/embed/668215f1-b6cc-4d47-916c-b0f3a8121569" },
-        { n: 21, src: "https://meyon.com.ye/videos/embed/d9d66822-44c8-4d7e-8fd2-36b3c321b1d9" },
-        { n: 22, src: "https://meyon.com.ye/videos/embed/9886a823-c676-4327-b5c4-33863da8d97b" },
-        { n: 23, src: "https://meyon.com.ye/videos/embed/16ee69f5-c074-448c-97e8-50cff9527884" },
-        { n: 24, src: "https://meyon.com.ye/videos/embed/fe251ede-d9c8-43ad-b0ac-103725340f63" },
-        { n: 25, src: "https://meyon.com.ye/videos/embed/4e0d35a9-5128-4bfe-8307-95024c310cbb" },
-        { n: 26, src: "https://meyon.com.ye/videos/embed/3b459c87-3816-4cf3-8c06-46db693e3e34" }
-    ];
+    // إعدادات مسلسل جزيرة الكنز - 26 حلقة (يمكنك تغيير هذا الرقم)
+    const totalEpisodes = 26;
+    const episodeLinks = [];
+
+    // الحلقة 1 = 370، الحلقة 26 = 395
+    for (let i = 0; i < totalEpisodes; i++) {
+        let episodeId = 370 + i;
+        episodeLinks.push(`https://cartoony.net/watch/46/${episodeId}`);
+    }
 
     const grid = document.getElementById('buttonsGrid');
     const player = document.getElementById('videoPlayer');
     const iframe = document.getElementById('mainIframe');
     const titleDisp = document.getElementById('episodeTitle');
+    
+    let scrollPosition = 0;
+    let bodyStylePosition = '';
+    let bodyStyleTop = '';
 
-    episodes.forEach(ep => {
+    function lockPage() {
+        scrollPosition = window.scrollY;
+        bodyStylePosition = document.body.style.position || '';
+        bodyStyleTop = document.body.style.top || '';
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollPosition}px`;
+        document.body.style.width = '100%';
+    }
+
+    function unlockPage() {
+        document.body.style.position = bodyStylePosition;
+        document.body.style.top = bodyStyleTop;
+        document.body.style.width = '';
+        window.scrollTo(0, scrollPosition);
+    }
+
+    episodeLinks.forEach((link, index) => {
         const btn = document.createElement('button');
         btn.className = 'ep-btn';
-        btn.innerText = ep.n;
+        btn.innerText = index + 1;
         btn.onclick = function() {
-            // تم إزالة النافذة المنبثقة - فقط البنرات الثابتة تظهر
-            loadEpisode(ep.n, ep.src, btn);
+            lockPage();
+            player.style.display = 'block';
+            iframe.src = link;
+            titleDisp.innerText = "أنت تشاهد الآن: جزيرة الكنز - الحلقة " + (index + 1);
+            document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            setTimeout(() => { unlockPage(); }, 500);
         };
         grid.appendChild(btn);
     });
-
-    function loadEpisode(num, url, btnElement) {
-        player.style.display = 'block';
-        iframe.src = url;
-        titleDisp.innerText = "أنت تشاهد الآن: جزيرة الكنز - الحلقة " + num;
-        
-        document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active'));
-        btnElement.classList.add('active');
-        
-        player.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    
+    iframe.addEventListener('load', function() {
+        try {
+            iframe.contentWindow.addEventListener('scroll', function(e) {
+                iframe.contentWindow.scrollTo(0, 0);
+            });
+        } catch(e) { /* تجاهل أخطاء CORS */ }
+    });
 </script>
 
 </body>
