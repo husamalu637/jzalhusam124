@@ -31,6 +31,30 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
+        /* ستايل البنرات */
+        .banner-top, .banner-bottom {
+            width: 100%;
+            text-align: center;
+            background: #0a0e15;
+            padding: 20px 0;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+        .banner-top {
+            max-width: 900px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .banner-bottom {
+            max-width: 900px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
         .main-container {
             max-width: 900px;
             width: 95%;
@@ -119,6 +143,20 @@
     <p>جزيرة الكنز - اختر رقم الحلقة وابدأ المغامرة</p>
 </header>
 
+<!-- ===== بنر أعلى الموقع ===== -->
+<div class="banner-top">
+    <script>
+        atOptions = {
+            'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+        };
+    </script>
+    <script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script>
+</div>
+
 <div class="main-container">
     
     <div id="videoPlayer" class="video-display-area">
@@ -134,6 +172,22 @@
 
     <p class="info-text">جميع حلقات جزيرة الكنز متوفرة الآن بجودة عالية</p>
 </div>
+
+<!-- ===== بنر أسفل الموقع ===== -->
+<div class="banner-bottom">
+    <script>
+        atOptions = {
+            'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+        };
+    </script>
+    <script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script>
+</div>
+
+<footer>جميع الحقوق محفوظة - صدى الطفولة &copy; 2026</footer>
 
 <script>
     const episodes = [
@@ -175,15 +229,13 @@
         btn.className = 'ep-btn';
         btn.innerText = ep.n;
         btn.onclick = function() {
+            // تم إزالة النافذة المنبثقة - فقط البنرات الثابتة تظهر
             loadEpisode(ep.n, ep.src, btn);
         };
         grid.appendChild(btn);
     });
 
     function loadEpisode(num, url, btnElement) {
-        // فتح الإعلان الخاص بك
-        window.open('https://www.profitablecpmratenetwork.com/e41dj2h87?key=bef514b5ca3fa945e7a3b60e4a9ef21a', '_blank');
-        
         player.style.display = 'block';
         iframe.src = url;
         titleDisp.innerText = "أنت تشاهد الآن: جزيرة الكنز - الحلقة " + num;
@@ -195,6 +247,5 @@
     }
 </script>
 
-<footer>جميع الحقوق محفوظة - صدى الطفولة &copy; 2026</footer>
 </body>
 </html>
